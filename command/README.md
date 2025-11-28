@@ -1,20 +1,38 @@
-Kata: Command
-Contexto
-Estás trabajando con un sistema donde un “invocador” (botón, menú, control remoto) debe ejecutar acciones sobre diferentes objetos (luces, música, puertas). Actualmente, el invocador llama directamente los métodos concretos de cada dispositivo, lo cual genera condicionales y alto acoplamiento.
-El Patrón: Command
-El patrón Command convierte una acción en un objeto independiente que implementa un método execute(). El invocador no conoce los detalles del receptor, solo ejecuta comandos.
-El Command resuelve el problema de acoplamiento al:
-Desacoplar el invocador del receptor
-Representar acciones como objetos reutilizables
-Permitir agregar nuevas acciones sin modificar el invocador
-Habilitar funcionalidades avanzadas como undo, colas, macros
-Beneficios principales:
-Bajo acoplamiento: el invocador no conoce al receptor
-Principio abierto/cerrado: puedes agregar comandos sin modificar el invocador
-Reutilización: comandos pueden guardarse, deshacerse o encadenarse
-Extensibilidad: ideal para acciones complejas o repetibles
-¿Cuándo usar este patrón?
-Cuando necesitas desacoplar acciones de quien las invoca
-Cuando necesitas undo/redo
-Cuando quieres soportar macros o historial
-Cuando quieres un sistema de botones flexible
+# Kata: Command
+
+## Contexto
+Estás trabajando con un sistema donde un "invocador" (botón, menú, control remoto) ejecuta acciones sobre diferentes receptores como luces, puertas, audio o procesos. Actualmente, el invocador conoce directamente qué método de qué objeto debe llamar, generando condicionales como:
+
+```java
+if (action.equals("LIGHT_ON")) light.on();
+```
+
+Esto causa alto acoplamiento y hace difícil agregar nuevas acciones.
+
+## El Patrón: Command
+El patrón Command encapsula cada acción en un **objeto comando** que implementa un método `execute()`.  
+El invocador no conoce el receptor, solo ejecuta el comando.
+
+El patrón resuelve el problema al:
+- Separar el invocador de la lógica concreta  
+- Representar acciones como objetos independientes  
+- Permitir undo/redo, historial o colas de ejecución  
+
+## Beneficios principales:
+- **Bajo acoplamiento:** el invocador no conoce al receptor  
+- **OCP:** puedes agregar nuevos comandos sin modificar el invocador  
+- **Extensibilidad:** permite macros, historial y undo  
+- **SRP:** cada comando representa una acción específica  
+
+## ¿Cuándo usar este patrón?
+- Cuando quieres desacoplar quién invoca de quién ejecuta  
+- Cuando necesitas deshacer acciones  
+- Cuando manejas menús, botones o atajos de teclado  
+- Cuando quieres soportar macros o secuencias de comandos  
+
+## Challenge
+Consulta el README del challenge para implementar comandos concretos y un invocador flexible.
+
+## Recursos Adicionales
+- [Refactoring Guru - Command Pattern](https://refactoring.guru/design-patterns/command)
+- [Source Making - Command Pattern](https://sourcemaking.com/design_patterns/command)

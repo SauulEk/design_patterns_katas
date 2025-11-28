@@ -1,61 +1,58 @@
-Reto (Builder)
-Instrucciones
-Refactoriza la creación de paquetes turísticos para evitar constructores gigantes.
-Implementa Builder para construir objetos paso a paso con métodos encadenables.
-Tu solución debe permitir agregar nuevos campos sin romper constructores existentes.
-Código a Refactorizar
-Archivo: challenge/TravelPackage.java
-package builder.challenge;
+# Solución (Builder)
 
-public class TravelPackage {
-    private String hotel;
-    private int nights;
-    private boolean breakfastIncluded;
-    private boolean airportTransfer;
-    private String tour;
+⚠️ **Intenta resolver el reto antes de ver la solución**
 
-    public TravelPackage(String hotel, int nights, boolean breakfastIncluded,
-                         boolean airportTransfer, String tour) {
-        this.hotel = hotel;
-        this.nights = nights;
-        this.breakfastIncluded = breakfastIncluded;
-        this.airportTransfer = airportTransfer;
-        this.tour = tour;
-    }
+## Cambios Principales
 
-    @Override
-    public String toString() {
-        return "Hotel: " + hotel + ", Nights: " + nights +
-                ", Breakfast: " + breakfastIncluded +
-                ", Transfer: " + airportTransfer +
-                ", Tour: " + tour;
-    }
-}
-Archivo: challenge/Main.java
-package builder.challenge;
+1. **Separación de la construcción del objeto**  
+   En lugar de usar un constructor con muchos parámetros en `TravelPackage`, se introduce una clase `TravelPackageBuilder` encargada del proceso de construcción.
 
-public class Main {
-    public static void main(String[] args) {
-        TravelPackage pkg = new TravelPackage(
-                "Sensira", 4, true, true, "Chichen Itza"
-        );
+2. **Clase `TravelPackageBuilder`**  
+   - Contiene los mismos campos que `TravelPackage` (hotel, nights, breakfastIncluded, airportTransfer, tour, etc.).  
+   - Proporciona métodos encadenables como:
+     - `hotel(String hotel)`
+     - `nights(int nights)`
+     - `breakfastIncluded(boolean included)`
+     - `airportTransfer(boolean transfer)`
+     - `tour(String tour)`
+   - Expone un método `build()` que crea y devuelve una instancia inmutable de `TravelPackage`.
 
-        System.out.println(pkg);
+3. **Constructor de `TravelPackage` hecho privado o package-private**  
+   El objeto `TravelPackage` ahora se crea exclusivamente a través del builder, evitando constructores largos y confusos.
 
-        // Pero quiero poder armar paquetes flexibles:
-        // solo hotel+nights, o agregar extras opcionales.
-    }
-}
-Tips
- Constructor gigante = señal de Builder
-Si hay muchos parámetros opcionales, Builder es ideal.
- Encadenamiento fluido
-hotel().nights().transfer().build()
- Objeto inmutable al final
-Una vez construido, ya no cambia.
-Recursos adicionales
-¿Cuándo usar Builder?
-Cuando un objeto tiene muchos parámetros opcionales
-Cuando quieres construcción legible
-Cuando quieres evitar errores por orden de parámetros
-Si quieres, ahora te hago las soluciones completas (refactor final) de cada uno como hicimos con Factory/Observer/Adapter.
+4. **Código cliente más legible**  
+   En lugar de:
+   ```java
+   TravelPackage pkg = new TravelPackage("Sensira", 4, true, true, "Chichen Itza");
+   ```
+   ahora se utiliza:
+   ```java
+   TravelPackage pkg = new TravelPackageBuilder()
+           .hotel("Sensira")
+           .nights(4)
+           .breakfastIncluded(true)
+           .airportTransfer(true)
+           .tour("Chichen Itza")
+           .build();
+   ```
+
+## Salida Esperada
+
+```text
+Hotel: Sensira, Nights: 4, Breakfast: true, Transfer: true, Tour: Chichen Itza
+```
+
+Además, es posible crear variaciones fácilmente, por ejemplo:
+
+```java
+TravelPackage basic = new TravelPackageBuilder()
+        .hotel("Budget Inn")
+        .nights(2)
+        .build();
+```
+
+Con el patrón Builder aplicado:
+
+- Se mejora la legibilidad del código cliente.  
+- Se reduce la probabilidad de errores por orden incorrecto de parámetros.  
+- El sistema queda abierto a agregar nuevos campos sin romper el código existente, cumpliendo el principio abierto/cerrado.

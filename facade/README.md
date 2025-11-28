@@ -1,20 +1,32 @@
-Kata: Facade
-Contexto
-Estás trabajando con un sistema que requiere coordinar múltiples subsistemas como inventario, pagos y envíos. El cliente debe llamarlos uno por uno en un orden específico, lo que crea alto acoplamiento y hace que el código sea difícil de leer y mantener.
-El Patrón: Facade
-Facade proporciona una interfaz simplificada para un conjunto de subsistemas complejos. El cliente solo interactúa con un método de alto nivel, mientras que la fachada se encarga de coordinar el flujo interno.
-El patrón resuelve el problema de complejidad al:
-Encapsular la lógica de orquestación
-Evitar que el cliente conozca detalles internos
-Simplificar una API compleja
-Reducir dependencias directas del cliente
-Beneficios principales:
-Bajo acoplamiento: cliente solo conoce la fachada
-Simplicidad: un método reemplaza múltiples llamadas
-Mantenibilidad: cambios en subsistemas no afectan al cliente
-Claridad: el flujo queda encapsulado
-¿Cuándo usar este patrón?
-Cuando tienes varios subsistemas complejos
-Cuando el cliente no debe conocer la lógica interna
-Cuando quieres un punto de entrada simple a un proceso
-Cuando necesitas ocultar complejidad interna
+# Kata: Facade
+
+## Contexto
+Estás trabajando en un sistema donde un cliente debe interactuar con múltiples subsistemas como inventario, pagos, envíos, logs y notificaciones. Esto obliga al cliente a conocer demasiados detalles internos, creando alto acoplamiento y código difícil de mantener.
+
+## El Patrón: Facade
+Facade proporciona una **interfaz sencilla** que envuelve múltiples subsistemas y expone un método de alto nivel para realizar operaciones complejas.
+
+El patrón resuelve el problema al:
+- Esconder la complejidad interna  
+- Reducir dependencias del cliente  
+- Proporcionar un punto de entrada unificado  
+- Encapsular procesos que involucran varios módulos  
+
+## Beneficios principales:
+- **Simplicidad:** el cliente usa un solo método  
+- **Bajo acoplamiento:** los subsistemas quedan ocultos  
+- **Mantenibilidad:** cambios internos no afectan al cliente  
+- **Organización:** ideal para grandes sistemas con muchos módulos  
+
+## ¿Cuándo usar este patrón?
+- Cuando el cliente no debe conocer detalles internos  
+- Cuando hay múltiples subsistemas complejos  
+- Cuando quieres simplificar un API grande  
+- Cuando implementas flujos complejos que requieren orquestación  
+
+## Challenge
+Consulta el README del challenge para implementar una fachada que orqueste varios módulos del sistema.
+
+## Recursos Adicionales
+- [Refactoring Guru - Facade Pattern](https://refactoring.guru/design-patterns/facade)
+- [Source Making - Facade Pattern](https://sourcemaking.com/design_patterns/facade)

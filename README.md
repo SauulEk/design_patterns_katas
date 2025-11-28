@@ -25,9 +25,16 @@ kata-name/
 
 ## Katas Disponibles
 
-1. [Factory Pattern](./factory/)
-2. [Adapter Pattern](./adapter/)
-3. [Observer Pattern](./observer/)
+## Katas Disponibles
+
+1. [Proxy Pattern](./proxy/)
+2. [Decorator Pattern](./decorator/)
+3. [Strategy Pattern](./strategy/)
+4. [Command Pattern](./command/)
+5. [State Pattern](./state/)
+6. [Chain of Responsibility Pattern](./chain/)
+7. [Facade Pattern](./facade/)
+8. [Builder Pattern](./builder/)
 
 ---
 

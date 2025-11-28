@@ -1,21 +1,43 @@
-Reto (Proxy)
-Instrucciones
-Refactoriza el código para que el cliente no acceda directamente a RemoteMedicalRecordService.
-Implementa el patrón Proxy para:
-Controlar acceso por permisos (solo doctores pueden ver expedientes).
-Cachear resultados para no consultar dos veces el mismo paciente.
-Mantener al cliente desacoplado del servicio real (principio de inversión de dependencias).
-Tu solución debe permitir agregar nuevas reglas de acceso o cache sin modificar RemoteMedicalRecordService, aplicando OCP.
-Código a Refactorizar
-Archivo: challenge/MedicalRecordService.java
-package proxy.challenge;
+# Kata: Proxy
 
+##  Contexto
+
+Estás trabajando en un sistema de **expedientes médicos** donde el cliente se conecta a un servicio remoto llamado `RemoteMedicalRecordService`.  
+Ese servicio se encarga de **consultar los expedientes** desde el servidor del hospital.
+
+Actualmente:
+
+- El cliente crea directamente una instancia de `RemoteMedicalRecordService`.
+- Cada llamada hace una consulta “remota” costosa.
+- No hay **control de acceso** ni **cache**.
+
+Tu objetivo es aplicar el patrón **Proxy** para solucionar estos problemas.
+
+---
+
+## Objetivo del Reto
+
+Refactorizar el código para que el cliente **no acceda directamente** al `RemoteMedicalRecordService`, sino a través de un **Proxy** que:
+
+1. **Controle el acceso por permisos**
+2. **Implemente cache de resultados**
+3. **Desacople al cliente del servicio concreto**
+
+Además, la solución debe permitir agregar nuevas reglas sin modificar el servicio real (**OCP**).
+
+---
+
+##  Código Base
+
+### `MedicalRecordService.java`
+```java
 public interface MedicalRecordService {
     String getRecord(String patientId);
 }
-Archivo: challenge/RemoteMedicalRecordService.java
-package proxy.challenge;
+```
 
+### `RemoteMedicalRecordService.java`
+```java
 public class RemoteMedicalRecordService implements MedicalRecordService {
     @Override
     public String getRecord(String patientId) {
@@ -23,9 +45,10 @@ public class RemoteMedicalRecordService implements MedicalRecordService {
         return "Record of " + patientId + " ...";
     }
 }
-Archivo: challenge/Main.java
-package proxy.challenge;
+```
 
+### `Main.java`
+```java
 public class Main {
     public static void main(String[] args) {
         MedicalRecordService service = new RemoteMedicalRecordService();
@@ -35,19 +58,23 @@ public class Main {
         System.out.println(service.getRecord("P002"));
     }
 }
-Tips
-Evita tocar el servicio real
-RemoteMedicalRecordService simula una clase externa. No debes modificarla.
- El cliente debe depender de una abstracción
-El Main solo debería conocer MedicalRecordService, no la clase real.
- Piensa en el Proxy como un “guardia + memoria”
-Guardia: valida permisos.
-Memoria: guarda resultados para no repetir consultas.
-Recursos adicionales
-¿Cuándo usar Proxy?
-Acceso a recursos remotos o costosos
-Validación de permisos
-Cache / lazy loading
-Logging y auditoría
-Idea clave:
-El Proxy implementa la misma interfaz que el servicio real, así el cliente no nota la diferencia.
+```
+
+---
+
+##  Lo que debes hacer
+
+1. Crear el **Proxy**  
+2. Agregar **control de acceso**  
+3. Implementar **cache interno**  
+4. Refactorizar `Main` para usar el Proxy  
+5. No modificar `RemoteMedicalRecordService`
+
+---
+
+## ¿Cuándo usar Proxy?
+
+- Acceso remoto o costoso  
+- Cache o lazy loading  
+- Control de permisos  
+- Logging y auditoría  
